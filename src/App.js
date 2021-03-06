@@ -1,24 +1,31 @@
-import logo from './logo.svg';
+
 import './App.css';
+import {atom, useRecoilState, useResetRecoilState} from "recoil";
+
+const counterState = atom({
+  key: "counterState",
+  default:0,
+});
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+  const[counter,setCounter] = useRecoilState(counterState);
+  const resetCounter = useResetRecoilState(counterState);
+  return (                                     
+    <>
+      <div className="container">
+        <div className="card">
+            <h1>counter</h1>
+            <h1><span className="value" id="value">{counter}</span></h1>
+            <div className="btn-container">
+                <button className="btn decrease" onClick={()=> setCounter(counter - 1)}><i className="fas fa-minus"></i></button>
+                <button className="btn reset" onClick={resetCounter}><i className="fas fa-times"></i></button>
+                <button className="btn increase" onClick={()=> setCounter(counter + 1)}><i className="fas fa-plus"></i></button>
+            </div>
+        </div>
+        
+      </div>
+</>
   );
 }
 
